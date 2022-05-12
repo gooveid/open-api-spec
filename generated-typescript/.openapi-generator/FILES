@@ -1,0 +1,11 @@
+.openapi-generator-ignore
+apis/OtpApi.ts
+apis/index.ts
+index.ts
+models/OTPModel.ts
+models/OTPRequest.ts
+models/OTPResponse.ts
+models/OtpValidated.ts
+models/ValidateRequest.ts
+models/index.ts
+runtime.ts

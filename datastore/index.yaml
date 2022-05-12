@@ -1,0 +1,6 @@
+indexes:
+  - kind: otp
+    properties:
+      - name: TeamID
+      - name: CreatedAt
+        direction: desc

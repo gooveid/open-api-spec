@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info:
+  title: MNCOTP
+  version: "1.0"
+  description: MNCOTP API Design Spec
+servers:
+  - url: "https://api.goove.id/v1"
+paths:
+  /otp/status:
+    get:
+      description: "get status of otp"
+      tags:
+        - otp
+      security:
+        - ApiKey: ["makeotp"]   
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Succes get status"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OTPModel"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"
+  /otp/make:
+    post:
+      description: "make new otp"
+      tags:
+        - otp
+      security:
+        - ApiKey: ["statusotp"]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OTPRequest"
+      responses:
+        "200":
+          description: "Succes make otp"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OTPResponse"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"
+  /otp/validate:
+    post:
+      description: "validate otp"
+      tags:
+        - otp
+      security:
+        - ApiKey: ["validateotp"]   
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValidateRequest"
+      responses:
+        "200":
+          description: "Succes validate"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"
+  /methods:
+    get:
+      description: Get all available method
+      tags:
+        - mehtod
+      responses:
+        "200":
+          description: "Return all method"
+          content:
+            application/json:
+                schema:
+                  $ref: "#/components/schemas/OTPMethods"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"        
+components:
+  schemas:
+    OTPMethods:
+      type: object
+      properties:
+        methods:
+          type: array
+          items:
+            $ref: "#/components/schemas/OTPMethod"
+    OTPMethod:
+      type: object
+      properties:
+        label:
+          type: string
+        id:
+          type: string
+        available:
+          type: boolean
+    OTPRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          description: phone number with e164 format
+        otpType:
+          type: string
+          enum:
+            - waindirect
+            - wadirect
+            - telegram
+            - line
+    ValidateRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: otpID from /otp/make
+        otp:
+          type: string
+          description: 4 digit otp
+    OTPResponse:
+      type: object
+      properties:
+        otpID:
+          type: string
+        redirectLink:
+          type: string
+        validUntil:
+          type: string
+          format: date-time
+    OTPModel:
+      type: object
+      properties:
+        otpID:
+          type: string
+        redirectLink:
+          type: string
+        phone_snippet:
+          type: string
+        method:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        validUntil:
+          type: string
+          format: date-time
+        otpValidated:
+          $ref: "#/components/schemas/OtpValidated"
+        sendStatus:
+          $ref: "#/components/schemas/SendStatus"
+        error:
+          $ref: "#/components/schemas/OTPError"
+    OtpValidated:
+      type: object
+      nullable: true
+      properties:
+        otpValidated:
+          type: boolean
+        validatedDuration:
+          type: integer
+        otpValidatedAt:
+          type: string
+          format: date-time
+    SendStatus:
+      type: object
+      nullable: true
+      properties:
+        sendAt:
+          type: string
+          format: date-time
+    OTPError:
+      type: object
+      nullable: true
+      properties:
+        createdAt:
+          type: string
+          format: date-time 
+        cause:
+          type: string
+        explenation:
+          type: string       
+  responses:
+    ErrorOrRequestMalfunction:
+      description: Request Malfunction missing argument, properties or invalid data
+      content:
+        text/plain:
+          schema:
+            type: string
+    ServerError:
+      description: Server Error
+      content:
+        text/plain:
+          schema:
+            type: string
+  parameters:
+    id:
+      name: id
+      in: query
+      description: Identifier or the object
+      schema:
+        type: string
+  securitySchemes:
+    ApiKey: # arbitrary name for the security scheme
+      type: apiKey
+      in: header
+      name: X-KEY
+security:
+  - ApiKey: ["makeotp", "statusotp", "validateotp"]

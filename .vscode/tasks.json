@@ -1,0 +1,37 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate Dart DIO",
+      "type": "shell",
+      "command": "openapi-generator-cli generate -i ./api-spec.yml -g dart-dio-next -o ./flutter-generated-dio --additional-properties=\"pubName=genapi\" &&  cd ./flutter-generated-dio && flutter pub get && sleep 1  && flutter packages pub run build_runner build --delete-conflicting-outputs"
+    },
+    {
+      "label": "Generate Go",
+      "type": "shell",
+      "command": "openapi-generator-cli generate -i ./api-spec.yml -g go-echo-server -o ./generated-go"
+    },
+    {
+      "label": "Upload Index",
+      "type": "shell",
+      "command": "gcloud app deploy ./datastore/index.yaml"
+    },
+    {
+      "label": "Generate API TS",
+      "type": "shell",
+      "command": "openapi-generator-cli generate -i ./api-spec.yaml -g typescript-fetch -o ./generated-typescript"
+    },
+    {
+      "label": "Generate SITE TS",
+      "type": "shell",
+      "command": "openapi-generator-cli generate -i ./site-spec.yaml -g typescript-fetch -o ./generated-site-typescript"
+    },
+    {
+      "label": "Clean unused Index",
+      "type": "shell",
+      "command": "gcloud datastore indexes cleanup ./datastore.yaml"
+    }
+  ]
+}
