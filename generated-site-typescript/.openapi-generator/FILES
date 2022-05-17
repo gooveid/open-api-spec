@@ -4,6 +4,7 @@ apis/CallbackApi.ts
 apis/KeysApi.ts
 apis/OtpApi.ts
 apis/RequestsApi.ts
+apis/SystemApi.ts
 apis/TeamApi.ts
 apis/UserApi.ts
 apis/index.ts
@@ -18,10 +19,14 @@ models/LoginResponse.ts
 models/MyBilling.ts
 models/MyTeamModel.ts
 models/OTPError.ts
+models/OTPMethod.ts
+models/OTPMethods.ts
 models/OTPModel.ts
 models/OTPRequest.ts
 models/OTPResponse.ts
 models/OtpValidated.ts
+models/Pricing.ts
+models/PricingModel.ts
 models/RequestDetail.ts
 models/RequestStat.ts
 models/RequestTotal.ts

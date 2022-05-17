@@ -91,6 +91,10 @@ export class OtpApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-KEY"] = this.configuration.apiKey("X-KEY"); // ApiKey authentication
+        }
+
         const response = await this.request({
             path: `/otp/status`,
             method: 'GET',
@@ -118,6 +122,10 @@ export class OtpApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-KEY"] = this.configuration.apiKey("X-KEY"); // ApiKey authentication
+        }
 
         const response = await this.request({
             path: `/otp/validate`,

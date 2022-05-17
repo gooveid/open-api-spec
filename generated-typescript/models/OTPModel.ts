@@ -14,10 +14,18 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    OTPError,
+    OTPErrorFromJSON,
+    OTPErrorFromJSONTyped,
+    OTPErrorToJSON,
     OtpValidated,
     OtpValidatedFromJSON,
     OtpValidatedFromJSONTyped,
     OtpValidatedToJSON,
+    SendStatus,
+    SendStatusFromJSON,
+    SendStatusFromJSONTyped,
+    SendStatusToJSON,
 } from './';
 
 /**
@@ -40,6 +48,24 @@ export interface OTPModel {
     redirectLink?: string;
     /**
      * 
+     * @type {string}
+     * @memberof OTPModel
+     */
+    phoneSnippet?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OTPModel
+     */
+    method?: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof OTPModel
+     */
+    createdAt?: Date;
+    /**
+     * 
      * @type {Date}
      * @memberof OTPModel
      */
@@ -50,6 +76,18 @@ export interface OTPModel {
      * @memberof OTPModel
      */
     otpValidated?: OtpValidated | null;
+    /**
+     * 
+     * @type {SendStatus}
+     * @memberof OTPModel
+     */
+    sendStatus?: SendStatus | null;
+    /**
+     * 
+     * @type {OTPError}
+     * @memberof OTPModel
+     */
+    error?: OTPError | null;
 }
 
 export function OTPModelFromJSON(json: any): OTPModel {
@@ -64,8 +102,13 @@ export function OTPModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         
         'otpID': !exists(json, 'otpID') ? undefined : json['otpID'],
         'redirectLink': !exists(json, 'redirectLink') ? undefined : json['redirectLink'],
+        'phoneSnippet': !exists(json, 'phone_snippet') ? undefined : json['phone_snippet'],
+        'method': !exists(json, 'method') ? undefined : json['method'],
+        'createdAt': !exists(json, 'createdAt') ? undefined : (new Date(json['createdAt'])),
         'validUntil': !exists(json, 'validUntil') ? undefined : (new Date(json['validUntil'])),
         'otpValidated': !exists(json, 'otpValidated') ? undefined : OtpValidatedFromJSON(json['otpValidated']),
+        'sendStatus': !exists(json, 'sendStatus') ? undefined : SendStatusFromJSON(json['sendStatus']),
+        'error': !exists(json, 'error') ? undefined : OTPErrorFromJSON(json['error']),
     };
 }
 
@@ -80,8 +123,13 @@ export function OTPModelToJSON(value?: OTPModel | null): any {
         
         'otpID': value.otpID,
         'redirectLink': value.redirectLink,
+        'phone_snippet': value.phoneSnippet,
+        'method': value.method,
+        'createdAt': value.createdAt === undefined ? undefined : (value.createdAt.toISOString()),
         'validUntil': value.validUntil === undefined ? undefined : (value.validUntil.toISOString()),
         'otpValidated': OtpValidatedToJSON(value.otpValidated),
+        'sendStatus': SendStatusToJSON(value.sendStatus),
+        'error': OTPErrorToJSON(value.error),
     };
 }
 

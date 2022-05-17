@@ -629,7 +629,7 @@ paths:
     get:
       description: Get all available method
       tags:
-        - mehtod
+        - system
       responses:
         "200":
           description: "Return all method"
@@ -640,9 +640,45 @@ paths:
         "400":
           $ref: "#/components/responses/ErrorOrRequestMalfunction"
         "500":
-          $ref: "#/components/responses/ServerError"                
+          $ref: "#/components/responses/ServerError"  
+  /pricing:
+    get:
+      description: Get pricing
+      tags:
+        - system
+      responses:
+        "200":
+          description: "Return pricing"
+          content:
+            application/json:
+                schema:
+                  $ref: "#/components/schemas/Pricing"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"                       
 components:
   schemas: 
+    Pricing:
+      type: object
+      properties:
+        whatsapp_indirect:
+            $ref: "#/components/schemas/PricingModel"
+        telegram:
+            $ref: "#/components/schemas/PricingModel"     
+    PricingModel:
+      type: object
+      properties:
+        product_name:
+          type: string
+        pricing_label:
+          type: string
+        unit:
+          type: string
+        currency:
+          type: string     
+        value:
+          type: number 
     OTPMethods:
       type: object
       properties:
