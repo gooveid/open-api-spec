@@ -51,6 +51,12 @@ export interface DepositModel {
     status?: string;
     /**
      * 
+     * @type {string}
+     * @memberof DepositModel
+     */
+    midtransToken?: string;
+    /**
+     * 
      * @type {Date}
      * @memberof DepositModel
      */
@@ -72,6 +78,7 @@ export function DepositModelFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'tax': !exists(json, 'tax') ? undefined : json['tax'],
         'depositId': !exists(json, 'deposit_id') ? undefined : json['deposit_id'],
         'status': !exists(json, 'status') ? undefined : json['status'],
+        'midtransToken': !exists(json, 'midtrans_token') ? undefined : json['midtrans_token'],
         'createdAt': !exists(json, 'created_at') ? undefined : (new Date(json['created_at'])),
     };
 }
@@ -90,6 +97,7 @@ export function DepositModelToJSON(value?: DepositModel | null): any {
         'tax': value.tax,
         'deposit_id': value.depositId,
         'status': value.status,
+        'midtrans_token': value.midtransToken,
         'created_at': value.createdAt === undefined ? undefined : (value.createdAt.toISOString()),
     };
 }
