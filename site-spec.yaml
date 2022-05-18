@@ -586,6 +586,51 @@ paths:
           $ref: "#/components/responses/ErrorOrRequestMalfunction"
         "500":
           $ref: "#/components/responses/ServerError"
+  /billing/deposit/history:
+    get:
+      description: Get deposit history
+      tags:
+        - billing
+      security:
+        - Token: []
+        - Refresh: []
+      responses:
+        "200":
+          description: "Return my billing charge history"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DepositModel"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"    
+  /billing/deposit/recharge:
+    post:
+      description: Recharge billing
+      tags:
+        - billing
+      security:
+        - Token: []
+        - Refresh: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DepositRequest"  
+      responses:
+        "200":
+          description: "Return my billing charge history"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DepositResponse"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"             
   /callback:
     get:
       description: Get team callback
@@ -659,6 +704,32 @@ paths:
           $ref: "#/components/responses/ServerError"                       
 components:
   schemas: 
+    DepositModel:
+      type: object
+      properties:
+        request_amount:
+          type: integer
+        amount:
+          type: integer
+        tax:
+          type: integer  
+        deposit_id:
+          type: string     
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    DepositResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    DepositRequest:
+      type: object
+      properties:
+        request_amount:
+          type: integer
     Pricing:
       type: object
       properties:

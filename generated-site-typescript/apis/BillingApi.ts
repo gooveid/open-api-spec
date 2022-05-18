@@ -18,10 +18,23 @@ import {
     ChargeHistory,
     ChargeHistoryFromJSON,
     ChargeHistoryToJSON,
+    DepositModel,
+    DepositModelFromJSON,
+    DepositModelToJSON,
+    DepositRequest,
+    DepositRequestFromJSON,
+    DepositRequestToJSON,
+    DepositResponse,
+    DepositResponseFromJSON,
+    DepositResponseToJSON,
     MyBilling,
     MyBillingFromJSON,
     MyBillingToJSON,
 } from '../models';
+
+export interface BillingDepositRechargePostRequest {
+    depositRequest?: DepositRequest;
+}
 
 /**
  * 
@@ -59,6 +72,77 @@ export class BillingApi extends runtime.BaseAPI {
      */
     async billingChargeHistoryGet(initOverrides?: RequestInit): Promise<Array<ChargeHistory>> {
         const response = await this.billingChargeHistoryGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get deposit history
+     */
+    async billingDepositHistoryGetRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<DepositModel>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["token"] = this.configuration.apiKey("token"); // Refresh authentication
+        }
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["token"] = this.configuration.apiKey("token"); // Token authentication
+        }
+
+        const response = await this.request({
+            path: `/billing/deposit/history`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DepositModelFromJSON));
+    }
+
+    /**
+     * Get deposit history
+     */
+    async billingDepositHistoryGet(initOverrides?: RequestInit): Promise<Array<DepositModel>> {
+        const response = await this.billingDepositHistoryGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Recharge billing
+     */
+    async billingDepositRechargePostRaw(requestParameters: BillingDepositRechargePostRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DepositResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["token"] = this.configuration.apiKey("token"); // Refresh authentication
+        }
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["token"] = this.configuration.apiKey("token"); // Token authentication
+        }
+
+        const response = await this.request({
+            path: `/billing/deposit/recharge`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: DepositRequestToJSON(requestParameters.depositRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DepositResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Recharge billing
+     */
+    async billingDepositRechargePost(requestParameters: BillingDepositRechargePostRequest, initOverrides?: RequestInit): Promise<DepositResponse> {
+        const response = await this.billingDepositRechargePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

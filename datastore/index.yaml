@@ -4,3 +4,8 @@ indexes:
       - name: TeamID
       - name: CreatedAt
         direction: desc
+  - kind: deposit
+    properties:
+      - name: UserID
+      - name: CreatedAt
+        direction: desc      

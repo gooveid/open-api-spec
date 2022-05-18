@@ -13,6 +13,9 @@ models/ApproveUser.ts
 models/BillingDetail.ts
 models/CallbackModel.ts
 models/ChargeHistory.ts
+models/DepositModel.ts
+models/DepositRequest.ts
+models/DepositResponse.ts
 models/KeyRequest.ts
 models/Keys.ts
 models/LoginResponse.ts
