@@ -31,5 +31,6 @@ export * from './TeamInvitation';
 export * from './TeamInvitationRequest';
 export * from './TeamMember';
 export * from './TeamSnippet';
+export * from './UsageModel';
 export * from './UserSnippet';
 export * from './ValidateRequest';

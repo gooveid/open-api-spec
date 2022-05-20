@@ -6,6 +6,7 @@ apis/OtpApi.ts
 apis/RequestsApi.ts
 apis/SystemApi.ts
 apis/TeamApi.ts
+apis/UsageReportApi.ts
 apis/UserApi.ts
 apis/index.ts
 index.ts
@@ -40,6 +41,7 @@ models/TeamInvitation.ts
 models/TeamInvitationRequest.ts
 models/TeamMember.ts
 models/TeamSnippet.ts
+models/UsageModel.ts
 models/UserSnippet.ts
 models/ValidateRequest.ts
 models/index.ts

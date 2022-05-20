@@ -8,4 +8,5 @@ export * from './OtpApi';
 export * from './RequestsApi';
 export * from './SystemApi';
 export * from './TeamApi';
+export * from './UsageReportApi';
 export * from './UserApi';

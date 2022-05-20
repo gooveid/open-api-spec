@@ -701,9 +701,64 @@ paths:
         "400":
           $ref: "#/components/responses/ErrorOrRequestMalfunction"
         "500":
-          $ref: "#/components/responses/ServerError"                       
+          $ref: "#/components/responses/ServerError" 
+  /usage:
+    post:
+      description: Create Usage Report
+      tags:
+        - usage_report
+      responses:
+        "200":
+          description: "Succesfully Create Usage"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"  
+    get:
+      description: Get usage report
+      tags:
+        - usage_report
+      security:
+        - Token: []
+        - Refresh: []
+      responses:
+        "200":
+          description: "Return usage report"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UsageModel"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"                                   
 components:
-  schemas: 
+  schemas:
+    UsageModel:
+      type: object
+      properties:
+        usage_id:
+          type: string  
+        usage_name:
+          type: string     
+        status:
+          type: string
+        csv_relative_path:
+          type: string 
+        generated_at:
+          type: string
+          format: date-time   
+        initiate_at:
+          type: string
+          format: date-time    
+        from:
+          type: string
+          format: date-time 
+        untill:
+          type: string
+          format: date-time   
     DepositModel:
       type: object
       properties:
