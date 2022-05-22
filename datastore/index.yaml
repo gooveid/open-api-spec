@@ -8,4 +8,9 @@ indexes:
     properties:
       - name: UserID
       - name: CreatedAt
-        direction: desc      
+        direction: desc   
+  - kind: usage_report
+    properties:
+      - name: TeamID
+      - name: Untill
+        direction: desc          

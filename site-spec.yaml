@@ -733,9 +733,35 @@ paths:
         "400":
           $ref: "#/components/responses/ErrorOrRequestMalfunction"
         "500":
-          $ref: "#/components/responses/ServerError"                                   
+          $ref: "#/components/responses/ServerError"
+  /usage/download:
+    get:
+      description: Download Usage
+      tags:
+        - usage_report
+      parameters:
+        - $ref: "#/components/parameters/id"
+      security:
+        - Token: []
+        - Refresh: []
+      responses:
+        "200":
+          description: "Return usage report"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DownloadUsage"
+        "400":
+          $ref: "#/components/responses/ErrorOrRequestMalfunction"
+        "500":
+          $ref: "#/components/responses/ServerError"                                           
 components:
   schemas:
+    DownloadUsage:
+      type: object
+      properties:
+        url:
+          type: string  
     UsageModel:
       type: object
       properties:

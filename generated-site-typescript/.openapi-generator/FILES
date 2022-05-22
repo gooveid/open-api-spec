@@ -17,6 +17,7 @@ models/ChargeHistory.ts
 models/DepositModel.ts
 models/DepositRequest.ts
 models/DepositResponse.ts
+models/DownloadUsage.ts
 models/KeyRequest.ts
 models/Keys.ts
 models/LoginResponse.ts

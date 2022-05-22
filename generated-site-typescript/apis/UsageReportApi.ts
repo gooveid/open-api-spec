@@ -15,15 +15,60 @@
 
 import * as runtime from '../runtime';
 import {
+    DownloadUsage,
+    DownloadUsageFromJSON,
+    DownloadUsageToJSON,
     UsageModel,
     UsageModelFromJSON,
     UsageModelToJSON,
 } from '../models';
 
+export interface UsageDownloadGetRequest {
+    id?: string;
+}
+
 /**
  * 
  */
 export class UsageReportApi extends runtime.BaseAPI {
+
+    /**
+     * Download Usage
+     */
+    async usageDownloadGetRaw(requestParameters: UsageDownloadGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DownloadUsage>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters['id'] = requestParameters.id;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["token"] = this.configuration.apiKey("token"); // Refresh authentication
+        }
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["token"] = this.configuration.apiKey("token"); // Token authentication
+        }
+
+        const response = await this.request({
+            path: `/usage/download`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DownloadUsageFromJSON(jsonValue));
+    }
+
+    /**
+     * Download Usage
+     */
+    async usageDownloadGet(requestParameters: UsageDownloadGetRequest, initOverrides?: RequestInit): Promise<DownloadUsage> {
+        const response = await this.usageDownloadGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Get usage report

@@ -7,6 +7,7 @@ export * from './ChargeHistory';
 export * from './DepositModel';
 export * from './DepositRequest';
 export * from './DepositResponse';
+export * from './DownloadUsage';
 export * from './KeyRequest';
 export * from './Keys';
 export * from './LoginResponse';
