@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * MNCOTP
- * MNCOTP API Design Spec
+ * GOOVE
+ * GOOVE API Design Spec
  *
  * The version of the OpenAPI document: 1.0
  * 

@@ -1,10 +1,11 @@
 openapi: 3.0.3
 info:
-  title: MNCOTP
+  title: GOOVE
   version: "1.0"
-  description: MNCOTP API Design Spec
+  description: GOOVE API Design Spec
 servers:
   - url: "http://localhost:8080"
+  - url: "http://api.goove.id"
 paths:
   /auth/google:
     post:
@@ -1082,6 +1083,11 @@ components:
           type: string
         otpType:
           type: string
+        data:
+          type: string
+          nullable: true
+          description: Consumer related custom data in base64 format 
+          format: base64   
     ValidateRequest:
       type: object
       properties:
@@ -1125,6 +1131,10 @@ components:
         validUntil:
           type: string
           format: date-time
+        custom_data:
+          type: string
+          description: Consumer related custom data
+          format: base64    
         otpValidated:
           $ref: "#/components/schemas/OtpValidated"
         sendStatus:

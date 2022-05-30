@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * MNCOTP
- * MNCOTP API Design Spec
+ * GOOVE
+ * GOOVE API Design Spec
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -31,6 +31,12 @@ export interface OTPRequest {
      * @memberof OTPRequest
      */
     otpType?: string;
+    /**
+     * Consumer related custom data in base64 format
+     * @type {string}
+     * @memberof OTPRequest
+     */
+    data?: string | null;
 }
 
 export function OTPRequestFromJSON(json: any): OTPRequest {
@@ -45,6 +51,7 @@ export function OTPRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         
         'phone': !exists(json, 'phone') ? undefined : json['phone'],
         'otpType': !exists(json, 'otpType') ? undefined : json['otpType'],
+        'data': !exists(json, 'data') ? undefined : json['data'],
     };
 }
 
@@ -59,6 +66,7 @@ export function OTPRequestToJSON(value?: OTPRequest | null): any {
         
         'phone': value.phone,
         'otpType': value.otpType,
+        'data': value.data,
     };
 }
 

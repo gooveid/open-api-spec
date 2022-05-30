@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: MNCOTP
+  title: GOOVE
   version: "1.0"
-  description: MNCOTP API Design Spec
+  description: GOOVE API Design Spec
 servers:
   - url: "https://api.goove.id/v1"
 paths:
@@ -112,9 +112,12 @@ components:
           type: string
           enum:
             - waindirect
-            - wadirect
-            - telegram
-            - line
+            - telegram  
+        data:
+          type: string
+          nullable: true
+          description: Consumer related custom data in base64 format 
+          format: base64     
     ValidateRequest:
       type: object
       properties:
@@ -151,6 +154,10 @@ components:
         validUntil:
           type: string
           format: date-time
+        custom_data:
+          type: string
+          description: Consumer related custom data
+          format: base64 
         otpValidated:
           $ref: "#/components/schemas/OtpValidated"
         sendStatus:

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * MNCOTP
- * MNCOTP API Design Spec
+ * GOOVE
+ * GOOVE API Design Spec
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -71,6 +71,12 @@ export interface OTPModel {
      */
     validUntil?: Date;
     /**
+     * Consumer related custom data
+     * @type {string}
+     * @memberof OTPModel
+     */
+    customData?: string;
+    /**
      * 
      * @type {OtpValidated}
      * @memberof OTPModel
@@ -106,6 +112,7 @@ export function OTPModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'method': !exists(json, 'method') ? undefined : json['method'],
         'createdAt': !exists(json, 'createdAt') ? undefined : (new Date(json['createdAt'])),
         'validUntil': !exists(json, 'validUntil') ? undefined : (new Date(json['validUntil'])),
+        'customData': !exists(json, 'custom_data') ? undefined : json['custom_data'],
         'otpValidated': !exists(json, 'otpValidated') ? undefined : OtpValidatedFromJSON(json['otpValidated']),
         'sendStatus': !exists(json, 'sendStatus') ? undefined : SendStatusFromJSON(json['sendStatus']),
         'error': !exists(json, 'error') ? undefined : OTPErrorFromJSON(json['error']),
@@ -127,6 +134,7 @@ export function OTPModelToJSON(value?: OTPModel | null): any {
         'method': value.method,
         'createdAt': value.createdAt === undefined ? undefined : (value.createdAt.toISOString()),
         'validUntil': value.validUntil === undefined ? undefined : (value.validUntil.toISOString()),
+        'custom_data': value.customData,
         'otpValidated': OtpValidatedToJSON(value.otpValidated),
         'sendStatus': SendStatusToJSON(value.sendStatus),
         'error': OTPErrorToJSON(value.error),

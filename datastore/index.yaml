@@ -4,6 +4,11 @@ indexes:
       - name: TeamID
       - name: CreatedAt
         direction: desc
+  - kind: otp
+    properties:
+      - name: Phone
+      - name: CreatedAt
+        direction: desc      
   - kind: deposit
     properties:
       - name: UserID
