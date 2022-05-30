@@ -1195,8 +1195,7 @@ components:
     ApiKey: # arbitrary name for the security scheme
       type: apiKey
       in: header
-      name: X-KEY
-
+      name: X-API-KEY
     Token:
       type: apiKey
       in: header

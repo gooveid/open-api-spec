@@ -217,6 +217,6 @@ components:
     ApiKey: # arbitrary name for the security scheme
       type: apiKey
       in: header
-      name: X-KEY
+      name: X-API-KEY
 security:
   - ApiKey: ["makeotp", "statusotp", "validateotp"]

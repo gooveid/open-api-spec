@@ -6,12 +6,12 @@
     {
       "label": "Generate Dart DIO",
       "type": "shell",
-      "command": "openapi-generator-cli generate -i ./api-spec.yml -g dart-dio-next -o ./flutter-generated-dio --additional-properties=\"pubName=genapi\" &&  cd ./flutter-generated-dio && flutter pub get && sleep 1  && flutter packages pub run build_runner build --delete-conflicting-outputs"
+      "command": "openapi-generator-cli generate -i ./api-spec.yaml -g dart-dio-next -o ./flutter-generated-dio --additional-properties=\"pubName=genapi\" &&  cd ./flutter-generated-dio && flutter pub get && sleep 1  && flutter packages pub run build_runner build --delete-conflicting-outputs"
     },
     {
       "label": "Generate Go",
       "type": "shell",
-      "command": "openapi-generator-cli generate -i ./api-spec.yml -g go-echo-server -o ./generated-go"
+      "command": "openapi-generator-cli generate -i ./api-spec.yaml -g go-echo-server -o ./generated-go"
     },
     {
       "label": "Upload Index",

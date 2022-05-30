@@ -57,7 +57,7 @@ export class OtpApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-KEY"] = this.configuration.apiKey("X-KEY"); // ApiKey authentication
+            headerParameters["X-API-KEY"] = this.configuration.apiKey("X-API-KEY"); // ApiKey authentication
         }
 
         const response = await this.request({
@@ -92,7 +92,7 @@ export class OtpApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-KEY"] = this.configuration.apiKey("X-KEY"); // ApiKey authentication
+            headerParameters["X-API-KEY"] = this.configuration.apiKey("X-API-KEY"); // ApiKey authentication
         }
 
         const response = await this.request({
@@ -124,7 +124,7 @@ export class OtpApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-KEY"] = this.configuration.apiKey("X-KEY"); // ApiKey authentication
+            headerParameters["X-API-KEY"] = this.configuration.apiKey("X-API-KEY"); // ApiKey authentication
         }
 
         const response = await this.request({
